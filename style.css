@@ -1,30 +1,74 @@
+/* Variáveis de Cores (fácil de mudar depois) */
+:root {
+    --azul-principal: #183C63;
+    --fundo-pagina: #F4F7FA;
+    --fundo-card: #FFFFFF;
+    --texto-claro: #FFFFFF;
+    --texto-secundario: #555555;
+    --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --borda-raio: 12px;
+}
+
+/* Estilo Geral do Corpo */
+body {
+    background-color: var(--fundo-pagina);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 20px 0;
+}
+
+/* Cabeçalho */
 header {
-    background-color: #183C63;
-    color: #FFFFFF;
+    background-color: var(--azul-principal);
+    color: var(--texto-claro);
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 24px 16px;
+    border-radius: var(--borda-raio) var(--borda-raio) 0 0;
 }
 
+/* Conteúdo Principal */
 main {
-    background-color: #FFFFFF;
-    color: #183C63;
+    background-color: var(--fundo-card);
+    color: var(--azul-principal);
     max-width: 800px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 24px;
+    border-radius: 0 0 var(--borda-raio) var(--borda-raio);
+    box-shadow: var(--sombra-suave);
 }
 
+/* Estilo do Card do Artigo */
 article {
     display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    border: 1px solid #EAEAEA;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Efeito ao passar o mouse no artigo */
+article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Imagem de Perfil / Autor */
 img {
     width: 80px;
     height: 80px;
+    object-fit: cover;
+    border-radius: 50%; /* Deixa a imagem redonda */
+    border: 2px solid var(--azul-principal);
 }
 
+/* Texto do Autor */
 .artigo-autor {
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--azul-principal);
+    font-size: 1.05rem;
 }
- 
