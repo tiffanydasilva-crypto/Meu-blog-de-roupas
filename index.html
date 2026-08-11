@@ -1,126 +1,391 @@
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog de Moda - Tiffany da Silva</title>
+    <title>Blog da Tiffany | Moda & Educação Digital</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f6f0;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background-color: #2c2c2c;
-            color: #ffffff;
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-        }
-        header p {
-            margin: 0.5rem 0 0 0;
-            font-style: italic;
-            color: #bbb;
-        }
-        main {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-radius: 8px;
-        }
-        h2 {
-            color: #d4a373;
-            font-size: 1.8rem;
-            margin-top: 0;
-        }
-        .autor {
-            font-size: 0.9rem;
-            color: #777;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-        
-        /* Estilos da Galeria */
-        .galeria-titulo {
-            margin-top: 3rem;
-            font-size: 1.4rem;
-            color: #2c2c2c;
-            border-bottom: 2px solid #d4a373;
-            padding-bottom: 0.3rem;
-        }
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 1.5rem;
-        }
-        .galeria-item {
-            overflow: hidden;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .galeria-item:hover {
-            transform: scale(1.03);
-        }
-        .galeria-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
+        /* ==========================================================================
+           1. VARIÁVEIS DE TEMA (MODO CLARO E ESCURO)
+           ========================================================================== */
+        :root {
+            /* Tema Claro (Padrão) */
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent-color: #d4a373;
+            --accent-hover: #bc8a5f;
+            --border-color: #e2e8f0;
+            --badge-bg: #fef3c7;
+            --badge-text: #92400e;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        footer {
+        [data-theme="dark"] {
+            /* Tema Escuro */
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #e2b182;
+            --accent-hover: #f3c79e;
+            --border-color: #334155;
+            --badge-bg: #3730a3;
+            --badge-text: #e0e7ff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ==========================================================================
+           2. ESTILOS GERAIS E LEGIBILIDADE
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7; /* Legibilidade aprimorada */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Espaçamento Lateral e Responsividade */
+        .container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ==========================================================================
+           3. CABEÇALHO MODERNO & NAVEGAÇÃO
+           ========================================================================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+            background-color: rgba(15, 23, 42, 0.8);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Botão de Troca de Tema */
+        .btn-theme {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+        }
+
+        .btn-theme:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* ==========================================================================
+           4. SEÇÃO HERO / APRESENTAÇÃO
+           ========================================================================== */
+        .hero {
+            padding: 3rem 0 2rem;
             text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           5. LAYOUT DE DISPOSIÇÃO DAS POSTAGENS (GRID)
+           ========================================================================== */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 4rem;
+        }
+
+        .post-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-color);
+        }
+
+        .post-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .post-card:hover .post-image {
+            transform: scale(1.05);
+        }
+
+        .post-body {
             padding: 1.5rem;
-            background-color: #2c2c2c;
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .post-tag {
+            align-self: flex-start;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.35;
+        }
+
+        .post-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ==========================================================================
+           6. RODAPÉ
+           ========================================================================== */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            margin-top: 4rem;
+            background-color: var(--bg-card);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Meu blog de roupas</h1>
-        <p>Vamos falar um pouco sobre roupas que estão na moda no momento</p>
-    </header>
-    
-    <main>
-        <h2>Meu primeiro post</h2>
-        <p class="autor">Por: Tiffany da Silva</p>
-        <p>Boas-vindas ao meu novo blog! Aqui vou compartilhar algumas curiosidades de roupas e cores delas.</p>
-
-        <!-- Nova Seção da Galeria -->
-        <h3 class="galeria-titulo">Tendências da Estação</h3>
-        <div class="galeria-grid">
-            <div class="galeria-item">
-                <img src="https://unsplash.com" alt="Look Casual Feminino">
+        <div class="container header-content">
+            <div class="logo">
+                <h1>Tiffany da Silva</h1>
+                <p>Moda & Educação Digital</p>
             </div>
-            <div class="galeria-item">
-                <img src="https://unsplash.com" alt="Bolsas e Acessórios">
-            </div>
-            <div class="galeria-item">
-                <img src="https://unsplash.com" alt="Estilo Urbano Moderno">
-            </div>
+            <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+                <span id="theme-icon">🌙</span>
+                <span id="theme-text">Modo Escuro</span>
+            </button>
         </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Estilo, Tendências e Tecnologia</h2>
+            <p>Explorando a interseção entre o universo da moda e o aprendizado na era digital.</p>
+        </section>
+
+        <section class="posts-grid">
+
+            <article class="post-card">
+                <div class="post-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" alt="Look Casual Elegante" class="post-image">
+                </div>
+                <div class="post-body">
+                    <span class="post-tag">Estilo & Cores</span>
+                    <h3 class="post-title">Tendências de Cores e Combinações</h3>
+                    <p class="post-excerpt">
+                        Descubra como harmonizar paletas de cores no seu dia a dia e criar composições visuais que transmitem personalidade e sofisticação.
+                    </p>
+                    <div class="post-meta">
+                        <span>Por Tiffany da Silva</span>
+                        <span>11 de Ago, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <div class="post-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Estudantes usando tecnologia" class="post-image">
+                </div>
+                <div class="post-body">
+                    <span class="post-tag">Educação Digital</span>
+                    <h3 class="post-title">O Papel da Tecnologia no Aprendizado Moderno</h3>
+                    <p class="post-excerpt">
+                        Como utilizar ferramentas digitais e redes de forma consciente para expandir seus estudos, desenvolver habilidades e buscar conhecimento.
+                    </p>
+                    <div class="post-meta">
+                        <span>Por Tiffany da Silva</span>
+                        <span>10 de Ago, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <div class="post-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Acessórios e Organização" class="post-image">
+                </div>
+                <div class="post-body">
+                    <span class="post-tag">Sustentabilidade</span>
+                    <h3 class="post-title">Consumo Consciente & Brechós Online</h3>
+                    <p class="post-excerpt">
+                        A digitalização facilitou a moda sustentável. Veja como plataformas digitais estão ajudando a renovar guarda-roupas de forma consciente.
+                    </p>
+                    <div class="post-meta">
+                        <span>Por Tiffany da Silva</span>
+                        <span>08 de Ago, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <div class="post-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=800&q=80" alt="Ambiente de Trabalho Digital" class="post-image">
+                </div>
+                <div class="post-body">
+                    <span class="post-tag">Criação Digital</span>
+                    <h3 class="post-title">Como Criar um Blog do Zero</h3>
+                    <p class="post-excerpt">
+                        Dicas práticas de HTML, CSS e design para quem deseja estruturar seu próprio espaço na internet e compartilhar ideias com o mundo.
+                    </p>
+                    <div class="post-meta">
+                        <span>Por Tiffany da Silva</span>
+                        <span>05 de Ago, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Meu Blog de Roupas. Todos os direitos reservados.</p>
+        <div class="container">
+            <p>&copy; 2026 Tiffany da Silva — Blog de Moda & Educação Digital. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        // Função para alterar o tema
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Modo Claro';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Modo Escuro';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Alternar ao clicar
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        // Lembrar a escolha do usuário na próxima visita
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    </script>
 </body>
 </html>
